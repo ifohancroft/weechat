@@ -37,6 +37,7 @@ struct t_config_option *buflist_config_look_add_newline;
 struct t_config_option *buflist_config_look_auto_scroll;
 struct t_config_option *buflist_config_look_display_conditions;
 struct t_config_option *buflist_config_look_enabled;
+struct t_config_option *buflist_config_look_items;
 struct t_config_option *buflist_config_look_mouse_jump_visited_buffer;
 struct t_config_option *buflist_config_look_mouse_move_buffer;
 struct t_config_option *buflist_config_look_mouse_wheel;
@@ -237,6 +238,22 @@ buflist_config_change_enabled (const void *pointer, void *data,
         weechat_command (NULL, "/mute /bar hide buflist");
         buflist_bar_item_update (1);
     }
+}
+
+/*
+ * Callback for changes on option "buflist.look.items".
+ */
+
+void
+buflist_config_change_items (const void *pointer, void *data,
+                             struct t_config_option *option)
+{
+    /* make C compiler happy */
+    (void) pointer;
+    (void) data;
+    (void) option;
+
+    buflist_bar_item_update (2);
 }
 
 /*
@@ -491,6 +508,16 @@ buflist_config_init ()
         NULL, 0, 0, "on", NULL, 0,
         NULL, NULL, NULL,
         &buflist_config_change_enabled, NULL, NULL,
+        NULL, NULL, NULL);
+    buflist_config_look_items = weechat_config_new_option (
+        buflist_config_file, ptr_section,
+        "items", "integer",
+        N_("number of buflist items to use; the item names are: \"buflist\", "
+           "\"buflist2\", \"buflist3\"; be careful, using more than one item "
+           "uses more time for buflist refresh"),
+        NULL, 1, 3, "1", NULL, 0,
+        NULL, NULL, NULL,
+        &buflist_config_change_items, NULL, NULL,
         NULL, NULL, NULL);
     buflist_config_look_mouse_jump_visited_buffer = weechat_config_new_option (
         buflist_config_file, ptr_section,

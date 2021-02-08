@@ -38,6 +38,7 @@ extern struct t_config_option *buflist_config_look_add_newline;
 extern struct t_config_option *buflist_config_look_auto_scroll;
 extern struct t_config_option *buflist_config_look_display_conditions;
 extern struct t_config_option *buflist_config_look_enabled;
+extern struct t_config_option *buflist_config_look_items;
 extern struct t_config_option *buflist_config_look_mouse_jump_visited_buffer;
 extern struct t_config_option *buflist_config_look_mouse_move_buffer;
 extern struct t_config_option *buflist_config_look_mouse_wheel;
